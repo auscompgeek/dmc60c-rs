@@ -9,7 +9,8 @@ clean:
 	rm -f dmc60c-sys/src/mid.rs src/lib.rs
 
 dmc60c-sys/src/mid.rs: $(DMC60C_REPO)/include/digilent/dmc60/DMC60C_C.h
-	bindgen --whitelist-function 'c_.*' --rustified-enum '*' $^ | sed 's@^/// \\enum \w* @/// @' > $@
+	# TODO: write a rust script instead of calling bindgen and renaming enum variants with sed
+	bindgen --whitelist-function 'c_.*' --rustified-enum '*' $^ | sed 's@^/// \\enum \w* @/// @; s/^    DMC_\(\w*\) =/    \1 =/' > $@
 
 dmc60c-sys/lib/libdmc60c.so: $(DMC60C_REPO)/dmc60c-config-utility-release/libdmc60c.so
 	@mkdir -p dmc60c-sys/lib
