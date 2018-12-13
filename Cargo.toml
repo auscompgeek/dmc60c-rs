@@ -1,0 +1,15 @@
+[package]
+name = "dmc60c"
+version = "0.1.0"
+authors = ["David Vo <david@vovo.id.au>"]
+categories = ["api-bindings", "embedded", "hardware-support"]
+keywords = ["frc", "dmc-60c", "dmc60c"]
+license = "MIT"
+repository = "https://github.com/auscompgeek/dmc60c-rs"
+description = "Bindings to Digilent DMC60C FRC library"
+
+[dependencies]
+dmc60c-sys = { version = "0.1.0", path = "dmc60c-sys" }
+
+[workspace]
+members = [".", "dmc60c-sys"]

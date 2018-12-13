@@ -1,0 +1,14 @@
+[package]
+name = "dmc60c-sys"
+version = "0.1.0"
+authors = ["David Vo <david@vovo.id.au>"]
+build = "build.rs"
+categories = ["external-ffi-bindings", "embedded", "hardware-support"]
+license = "MIT"
+links = "dmc60c"
+repository = "https://github.com/auscompgeek/dmc60c-rs"
+description = "FFI bindings to Digilent DMC60C FRC library"
+
+[dependencies]
+# for linking to the WPILib HAL only
+wpilib-sys = "0.3.1"

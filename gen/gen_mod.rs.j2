@@ -1,0 +1,41 @@
+extern crate dmc60c_sys;
+
+use dmc60c_sys::*;
+pub use dmc60c_sys::{ControlMode, DMC_Code, LimitSwitch, LimitSwitchType};
+{% for header in headers %}
+{% for cls in header.classes %}
+
+pub struct {{ cls.name }} {
+    handle: i32,
+    device_number: i32,
+}
+
+impl {{ cls.name }} {
+{% for fn in cls.methods.public %}
+{% if not fn.destructor %}
+    {{ fn.rustdoc }}
+    pub fn {{ fn.rust_name }}({% if not fn.constructor %}&{% if not fn.getter %}mut {% endif %}self, {% endif %}{{ fn.in_params | join(', ', attribute='rust_decl') }}){% if fn.rust_returns %} -> {{ fn.rust_returns }}{% endif %} {
+{% if fn.constructor %}
+        let handle = unsafe {
+            c_{{ cls.name }}_Create{{ fn.constructor_idx }}({{ fn.in_params | join(', ', attribute='snake_name')}})
+        };
+        Self { handle, device_number }
+{% elif fn.name == 'getDeviceNumber' %}
+        self.device_number
+{% else %}
+        unsafe {
+            c_{{ cls.name }}_{{ fn.name }}(self.handle, {{ fn.in_params | join(', ', attribute='snake_name') }})
+        }
+{% endif %}
+    }
+{% endif %}
+{% endfor %}
+}
+
+impl Drop for {{ cls.name }} {
+    fn drop(&mut self) {
+        unsafe { c_{{ cls.name }}_Destroy(self.handle) };
+    }
+}
+{% endfor %}
+{% endfor %}
