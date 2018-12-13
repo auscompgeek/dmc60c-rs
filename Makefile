@@ -3,6 +3,7 @@ $(error DMC60C_REPO is not set (path to dmc60c-frc-api))
 endif
 
 all: dmc60c-sys/src/mid.rs src/lib.rs
+	cargo check
 
 clean:
 	rm -f dmc60c-sys/src/mid.rs src/lib.rs
