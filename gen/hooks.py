@@ -39,8 +39,6 @@ def method_hook(fn, data):
         p['qual_rust_type'] = qual_rust_type
 
     return_type = fn['rtnType']
-    if fn['name'] == 'getClosedLoopError':  # XXX: Digilent bug
-        return_type = 'float'
     if return_type != 'void':
         return_type = RUST_TYPES.get(return_type, return_type)
         fn['rust_returns'] = return_type
