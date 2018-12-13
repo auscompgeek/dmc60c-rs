@@ -4,3 +4,4 @@ Cargo.lock
 
 /src/lib.rs
 /dmc60c-sys/src/mid.rs
+/dmc60c-sys/lib
