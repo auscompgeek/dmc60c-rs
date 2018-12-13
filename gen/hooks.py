@@ -47,8 +47,8 @@ def method_hook(fn, data):
 
     fn['in_params'] = in_params
 
-    fn['getter'] = snake_name.startswith('get_')
-    if fn['getter'] and not in_params:
+    fn['getter'] = snake_name.startswith(('get_', 'is_'))
+    if snake_name.startswith('get_') and not in_params:
         snake_name = snake_name[4:]
 
     if fn['constructor']:
